@@ -3,7 +3,7 @@
  * @version		$Id: title.php $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2011 Hussfelt Consulting. All rights reserved.
+ * @copyright	Copyright (C) 2011 Migur Ltd. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  */
 
@@ -69,7 +69,9 @@ class plgContentTitle extends JPlugin {
 		}
 
 		$doc =& JFactory::getDocument();
-		$doc->setTitle($title_row);
+		if (strlen($title_row) > 0) {
+		    $doc->setTitle($title_row);
+		}
 
 		return '';
 	}

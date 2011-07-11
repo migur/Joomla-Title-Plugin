@@ -7,31 +7,52 @@
  * @license		GNU/GPL, see LICENSE.php
  */
 
-// No direct access
-defined('_JEXEC') or die;
+// Check to ensure this file is included in Joomla!
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
-jimport('joomla.plugin.plugin');
+jimport( 'joomla.plugin.plugin' );
 
 /**
- * Title Content Plugin
+ * Migur Title Content Plugin
  *
  * @package		Joomla
  * @subpackage	Content
- * @since 		1.6
+ * @since 		1.5
  */
-class plgContentTitle extends JPlugin {
+class plgContentTitle extends JPlugin
+{
+
+	private $prams = array();
+
+	/**
+	 * Constructor
+	 *
+	 * For php4 compatability we must not use the __constructor as a constructor for plugins
+	 * because func_get_args ( void ) returns a copy of all passed arguments NOT references.
+	 * This causes problems with cross-referencing necessary for the observer design pattern.
+	 *
+	 * @param object $subject The object to observe
+	 * @param object $params  The object that holds the plugin parameters
+	 * @since 1.5
+	 */
+	function plgContentTitle( &$subject, $params )
+	{
+		$this->params = $params;
+		parent::__construct( $subject, $params );
+	}
+
 
 	/**
 	 * Prepare new title for page
 	 *
-	 * @param	string		The context for the content passed to the plugin.
-	 * @param	object		The content object.  Note $article->text is also available
-	 * @param	object		The content params
-	 * @param	int			The 'page' number
-	 * @return	string
-	 * @since	1.6
+	 * Method is called by the view
+	 *
+	 * @param 	object		The article object.  Note $article->text is also available
+	 * @param 	object		The article params
+	 * @param 	int			The 'page' number
 	 */
-	public function onContentPrepare($context, &$article, &$params, $limitstart) {
+	function onAfterDisplayTitle( &$article, &$params, $limitstart )
+	{
 		$app = JFactory::getApplication();
 
 		$pathway =& $app->getPathway();

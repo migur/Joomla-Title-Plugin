@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content">
+	<name>Content - Migur Title Plugin</name>
+	<author>Henrik Hussfelt</author>
+	<creationDate>March 2011</creationDate>
+	<copyright>Copyright (C) 2011 Migur Ltd. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>henrik@migur.com</authorEmail>
+	<authorUrl>www.migur.com</authorUrl>
+	<version>1.0</version>
+	<description>PLGCONTENTTITLEXMLDESCRIPTION</description>
+
+	<files>
+		<filename plugin="title">title.php</filename>
+		<folder>language</folder>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_content_title.ini</language>
+	</languages>
+
+	<params>
+		<param name="changeHome" type="list"
+			description="PLGCONTENTTITLECHANGEHOMEDESC"
+			label="PLGCONTENTTITLECHANGEHOMELABEL" default="0">
+			<option value="0">PLGCONTENTTITLENO</option>
+			<option value="1">PLGCONTENTTITLEYES</option>
+		</param>
+		<param name="showHome" type="radio" default="1" label="PLGCONTENTTITLESHOWHOMELABEL" description="PLGCONTENTTITLESHOWHOMEDESC">
+			<option value="0">PLGCONTENTTITLENO</option>
+			<option value="1">PLGCONTENTTITLEYES</option>
+		</param>
+		<param name="homeText" type="text" default="" label="PLGCONTENTTITLEHOMETEXTLABEL" description="PLGCONTENTTITLEHOMETEXTDESC" />
+		<param name="titleDivider" type="text" default="" label="PLGCONTENTTITLEDIVIDERLABEL" description="PLGCONTENTTITLEDIVIDERDESC" />
+	</params>
+</install>

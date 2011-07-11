@@ -15,6 +15,7 @@
 		<filename>index.html</filename>
 		<folder>language</folder>
 	</files>
+
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.plg_content_title.ini</language>
 		<language tag="en-GB">en-GB/en-GB.plg_content_title.sys.ini</language>

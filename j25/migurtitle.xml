@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="system" method="upgrade">
+	<name>plg_system_migurtitle</name>
+	<author>Henrik Hussfelt</author>
+	<creationDate>March 2011</creationDate>
+	<copyright>Copyright (C) 2011 Migur Ltd. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>henrik@migur.com</authorEmail>
+	<authorUrl>www.migur.com</authorUrl>
+	<version>1.0.4</version>
+	<description>PLG_SYSTEM_MIGURTITLE_XML_DESCRIPTION</description>
+
+	<files>
+		<filename plugin="migurtitle">migurtitle.php</filename>
+		<filename>index.html</filename>
+		<folder>language</folder>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_migurtitle.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_migurtitle.sys.ini</language>
+	</languages>
+
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic">
+				<field name="changeHome" type="list"
+					description="PLG_SYSTEM_MIGURTITLE_CHANGE_HOME_DESC"
+					label="PLG_SYSTEM_MIGURTITLE_CHANGE_HOME_LABEL" default="0">
+					<option value="0">PLG_SYSTEM_MIGURTITLE_NO</option>
+					<option value="1">PLG_SYSTEM_MIGURTITLE_YES</option>
+				</field>
+				<field name="showHome" type="list"
+					description="PLG_SYSTEM_MIGURTITLE_SHOW_HOME_DESC"
+					label="PLG_SYSTEM_MIGURTITLE_SHOW_HOME_LABEL">
+					<option value="0">PLG_SYSTEM_MIGURTITLE_NO</option>
+					<option value="1">PLG_SYSTEM_MIGURTITLE_YES</option>
+				</field>
+				<field name="homeText" type="text" label="PLG_SYSTEM_MIGURTITLE_HOME_TEXT_LABEL" description="PLG_SYSTEM_MIGURTITLE_HOME_TEXT_DESC" />
+				<field name="titleDivider" type="text" filter="RAW" label="PLG_SYSTEM_MIGURTITLE_DIVIDER_LABEL" description="PLG_SYSTEM_MIGURTITLE_DIVIDER_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+		<server type="extension" priority="1" name="Migur Update Site">http://update.migur.com/migurtitle.xml</server>
+	</updateservers>
+</extension>

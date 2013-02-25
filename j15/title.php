@@ -65,33 +65,33 @@ class plgContentTitle extends JPlugin
 		}
 
 		$count = count($items);
+		
+		$titles = array();
 		for ($i = 0; $i < $count; $i ++) {
-			$items[$i]->name = stripslashes(htmlspecialchars($items[$i]->name));
+			$titles[$i] = $items[$i]->name;
 		}
 
 		if ($this->params->get('showHome', 1)) {
-			$item = new stdClass();
-			$item->name = $this->params->get('homeText', JText::_('Home'));
-			array_unshift($items, $item);
+			array_unshift($titles, $this->params->get('homeText', JText::_('Home')));
 			$count += 1;
 		}
 
-		$items = array_reverse($items);
+		$titles = array_reverse($titles);
 
 		$title_row = '';
 		for ($i = 0; $i < $count; $i ++) {
 			// If not the last item in the breadcrumbs add the separator
 			if ($i < $count -1) {
-				$title_row .= $items[$i]->name;
+				$title_row .= $titles[$i];
 				$title_row .= ' ' . $this->params->get('titleDivider', '|') . ' ';
 			} else {
-				$title_row .= $items[$i]->name;
+				$title_row .= $titles[$i];
 			}
 		}
 
 		$doc =& JFactory::getDocument();
 		if (strlen($title_row) > 0) {
-		    $doc->setTitle($title_row);
+		    $doc->setTitle(htmlspecialchars_decode($title_row));
 		}
 
 		return '';

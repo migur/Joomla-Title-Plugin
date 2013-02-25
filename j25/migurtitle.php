@@ -39,9 +39,11 @@ class plgSystemMigurtitle extends JPlugin {
 			return;
 		}
 		
-		$pathway =& $app->getPathway();
-
-		$items   = $pathway->getPathWay();
+		$menu = $app->getMenu();
+		
+		$pathway = $app->getPathway();
+		
+		$items = $pathway->getPathWay();
 
 		// Do not change startpage by default
 		if (count($items) == 0 && !$this->params->get('changeHome', 0)) {
@@ -49,31 +51,45 @@ class plgSystemMigurtitle extends JPlugin {
 		}
 
 		$count = count($items);
-		for ($i = 0; $i < $count; $i ++) {
-			$items[$i]->name = stripslashes(htmlspecialchars($items[$i]->name));
+
+		$titles = array();
+		
+		// Check if first item of pathway is the HOMEPAGE item.
+		// Joomla 3 changed behavior a little bit.
+		// If we have more than 1 element in pathway then 
+		// J! adds a HOMEPAGE item as the first item in pathway.
+		// If we are on home page then pathway is empty.
+		// Prior J! never added HOMEPAGE item into pathway.
+		// So let's remove HOMEPAGE if it exists here to remain usual behavior
+		// of a plugin.
+		$tree = $app->getMenu()->getActive()->tree;
+		//var_dump($tree, $menu->getDefault()->id);
+		$i = (!empty($tree[0]) && $menu->getDefault()->id == $tree[0])? 1:0;
+		for (; $i < $count; $i ++) {
+			$titles[$i] = $items[$i]->name;
 		}
 
 		if ($this->params->get('showHome', 1)) {
-			$item = new stdClass();
-			$item->name = $this->params->get('homeText', JText::_('Home'));
-			array_unshift($items, $item);
+			$title = $this->params->get('homeText', JText::_('Home'));
+			array_unshift($titles, $title);
 			$count += 1;
 		}
 
-		$items = array_reverse($items);
+		$titles = array_reverse($titles);
 
 		$title_row = '';
+		$count = count($titles);
 		for ($i = 0; $i < $count; $i ++) {
 			// If not the last item in the breadcrumbs add the separator
 			if ($i < $count -1) {
-				$title_row .= $items[$i]->name;
+				$title_row .= $titles[$i];
 				$title_row .= ' ' . $this->params->get('titleDivider', '|') . ' ';
 			} else {
-				$title_row .= $items[$i]->name;
+				$title_row .= $titles[$i];
 			}
 		}
 
-		$doc =& JFactory::getDocument();
+		$doc = JFactory::getDocument();
 		if (strlen($title_row) > 0) {
 		    $doc->setTitle($title_row);
 		}

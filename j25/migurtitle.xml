@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>henrik@migur.com</authorEmail>
 	<authorUrl>www.migur.com</authorUrl>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
 	<description>PLG_SYSTEM_MIGURTITLE_XML_DESCRIPTION</description>
 
 	<files>
@@ -23,7 +23,6 @@
 
 	<config>
 		<fields name="params">
-
 			<fieldset name="basic">
 				<field name="changeHome" type="list"
 					description="PLG_SYSTEM_MIGURTITLE_CHANGE_HOME_DESC"
@@ -39,6 +38,10 @@
 				</field>
 				<field name="homeText" type="text" label="PLG_SYSTEM_MIGURTITLE_HOME_TEXT_LABEL" description="PLG_SYSTEM_MIGURTITLE_HOME_TEXT_DESC" />
 				<field name="titleDivider" type="text" filter="RAW" label="PLG_SYSTEM_MIGURTITLE_DIVIDER_LABEL" description="PLG_SYSTEM_MIGURTITLE_DIVIDER_DESC" />
+				<field name="alternateEvent" type="radio" default="0" label="PLG_SYSTEM_MIGURTITLE_USE_ALTERNATE_EVENT_LABEL" description="PLG_SYSTEM_MIGURTITLE_USE_ALTERNATE_EVENT_DESC">
+					<option value="0">PLG_SYSTEM_MIGURTITLE_NO</option>
+					<option value="1">PLG_SYSTEM_MIGURTITLE_YES</option>	
+				</field>
 			</fieldset>
 		</fields>
 	</config>

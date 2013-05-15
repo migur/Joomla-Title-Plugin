@@ -76,6 +76,11 @@ class plgSystemMigurtitle extends JPlugin {
 		
 		$app = JFactory::getApplication();
 
+		// We don't want to do something in admin area 
+		if ($app->isAdmin()) {
+			return;
+		}
+		
 		$menu = $app->getMenu();
 		
 		$pathway = $app->getPathway();
@@ -84,46 +89,39 @@ class plgSystemMigurtitle extends JPlugin {
 
 		$title_row = '';
 		
+		$count = count($items);
+
+		$changeHome = $this->params->get('changeHome', 0);
+		
 		// Do not change startpage by default
-		if (count($items) > 0 || $this->params->get('changeHome', 0) > 0) {
+		if ($count == 0 && !$changeHome) {
+			return;
+		}
+		
+		$titles = array();
+		for ($i = 0; $i < $count; $i ++) {
+			$titles[$i] = $items[$i]->name;
+		}
 
-			$count = count($items);
+		// If we need to show home text always or this is a homepage and we have to change it
+		if ($this->params->get('showHome', 1)) {
+			$title = $this->params->get('homeText', JText::_('Home'));
+			array_unshift($titles, $title);
+			$count += 1;
+		}
 
-			$titles = array();
+		$titles = array_reverse($titles);
 
-			// Check if first item of pathway is the HOMEPAGE item.
-			// Joomla 3 changed behavior a little bit.
-			// If we have more than 1 element in pathway then 
-			// J! adds a HOMEPAGE item as the first item in pathway.
-			// If we are on home page then pathway is empty.
-			// Prior J! never added HOMEPAGE item into pathway.
-			// So let's remove HOMEPAGE if it exists here to remain usual behavior
-			// of a plugin.
-			$tree = $app->getMenu()->getActive()->tree;
-			$i = (!empty($tree[0]) && $menu->getDefault()->id == $tree[0])? 1:0;
-			for (; $i < $count; $i ++) {
-				$titles[$i] = $items[$i]->name;
+		$count = count($titles);
+		for ($i = 0; $i < $count; $i ++) {
+			// If not the last item in the breadcrumbs add the separator
+			if ($i < $count -1) {
+				$title_row .= $titles[$i];
+				$title_row .= ' ' . $this->params->get('titleDivider', '|') . ' ';
+			} else {
+				$title_row .= $titles[$i];
 			}
-
-			if ($this->params->get('showHome', 1)) {
-				$title = $this->params->get('homeText', JText::_('Home'));
-				array_unshift($titles, $title);
-				$count += 1;
-			}
-
-			$titles = array_reverse($titles);
-
-			$count = count($titles);
-			for ($i = 0; $i < $count; $i ++) {
-				// If not the last item in the breadcrumbs add the separator
-				if ($i < $count -1) {
-					$title_row .= $titles[$i];
-					$title_row .= ' ' . $this->params->get('titleDivider', '|') . ' ';
-				} else {
-					$title_row .= $titles[$i];
-				}
-			}
-		}	
+		}
 
 		$this->_pageTitle = $title_row;
 		

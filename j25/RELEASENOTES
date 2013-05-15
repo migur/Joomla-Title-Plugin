@@ -4,3 +4,7 @@ Version 1.0.5 - added support of JAT3
 Version 1.0.4 - &amp; bug fixed. Updated for J!3.0
 + Now plugin is available for both Joomla! 2.5.x and 3.x
 * Fixed &amp; html entities in page title
+
+Version 13.05
+* Fixed notices for pages that has no menu item.
+
